@@ -36,16 +36,18 @@ const userlist = async (req, res) => {
     const { name, email } = req.query;
 
     // Construct a filter object based on the provided query parameters
-
     const filter = {};
 
     if (name) {
-      filter.name = name;
+      // Use Sequelize's ILIKE operator for case-insensitive partial matching
+      filter.name = { [Op.iLike]: `%${name}%` };
     }
 
     if (email) {
-      filter.email = email;
+      // Use Sequelize's ILIKE operator for case-insensitive partial matching
+      filter.email = { [Op.iLike]: `%${email}%` };
     }
+
     // Use the filter object in the findAll query
     const users = await db.User.findAll({ where: filter });
 
