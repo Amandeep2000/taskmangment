@@ -7,8 +7,7 @@ const jwt = require("jsonwebtoken");
 
 const userRegister = async (req, res) => {
   try {
-    const { name, password, email, mobileNo, zipcode } 
-    = req.body;
+    const { name, password, email, mobileNo, zipcode } = req.body;
 
     await Promise.all(
       UserRegisterRules.map((validation) => validation.run(req))
